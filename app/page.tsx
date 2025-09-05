@@ -16,9 +16,9 @@ export default function HomePage() {
     <div className="min-h-screen bg-background">
       <Header />
       <main>
-        <HeroSection />
         <Hero1 />
         <Hero4 />
+        <HeroSection />
         <ScrollAnimation animation="fade-up">
           <FeaturesSection />
         </ScrollAnimation>
