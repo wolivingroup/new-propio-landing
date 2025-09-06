@@ -18,7 +18,7 @@ const avatars = [
 
 const Hero1 = () => {
   return (
-    <main className="bg-gradient-to-br from-background via-card to-background min-h-[80vh] flex items-center justify-center">
+    <main className="bg-gradient-to-br from-background via-card to-background min-h-[75vh] flex items-center justify-center">
       <div className="container grid place-content-center overflow-hidden p-4 sm:p-6 lg:p-12 mx-auto">
         <div className="grid h-full grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-12">
           <div className="order-2 flex flex-col items-start lg:order-1">
