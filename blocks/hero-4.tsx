@@ -73,7 +73,7 @@ const Hero4 = () => {
             <RevealOnScroll
               effect="blurIn"
               className="mt-6 flex items-center justify-center gap-2 md:mt-8 xl:mt-10"
-              toVars={{ duration: 1, delay: 0.2 }}
+              toVars={{ duration: 1, delay: 0.15 }}
             >
               <RevealText
                 type="lines"
@@ -87,8 +87,8 @@ const Hero4 = () => {
 
             <RevealOnScroll
               effect="blurIn"
-              className="mt-6 flex items-center justify-center gap-2 md:mt-8 xl:mt-10"
-              toVars={{ duration: 1, delay: 0.2 }}
+              className="mt-6 flex items-center justify-center gap-2 md:mt-4"
+              toVars={{ duration: 1, delay: 0.1 }}
             >
               <RevealText
                 type="lines"
@@ -111,7 +111,7 @@ const Hero4 = () => {
             <RevealOnScroll
               effect="blurIn"
               className="mt-6 flex items-center justify-center gap-2 md:mt-8 xl:mt-10"
-              toVars={{ duration: 1, delay: 0.5 }}
+              toVars={{ duration: 1, delay: 0.35 }}
             >
               <Customers />
 
@@ -125,7 +125,7 @@ const Hero4 = () => {
             <RevealOnScroll
               effect="blurIn"
               className="mt-8 flex items-center justify-center gap-4 md:gap-6 xl:mt-12"
-              toVars={{ duration: 1, delay: 0.75 }}
+              toVars={{ duration: 1, delay: 0.65 }}
             >
               <Button
                 size="lg"
@@ -140,7 +140,7 @@ const Hero4 = () => {
               </Button>
               <Button
                 size="lg"
-                className="shadow-primary/10 hover:shadow-primary/20 h-fit w-32 cursor-pointer flex-col items-stretch justify-start gap-0 bg-gradient-to-r from-indigo-500 to-purple-600 px-4 py-3 text-white shadow-xl transition-transform duration-200 ease-in-out hover:scale-105 sm:w-40"
+                className="shadow-primary/10 hover:shadow-primary/20 h-fit w-32 cursor-pointer flex-col items-stretch justify-start gap-0 bg-gradient-to-r from-orange400 via-primary to-secondary px-4 py-3 text-white shadow-xl transition-transform duration-200 ease-in-out hover:scale-105 sm:w-40"
               >
                 <div className="flex items-center justify-between opacity-80">
                   <p className="text-sm/none">Launch</p>
@@ -178,8 +178,34 @@ const Hero4 = () => {
         </RevealOnScroll>
         <div className="to-background absolute inset-x-0 bottom-0 h-32 bg-linear-to-b from-transparent sm:h-48" />
       </div>
-      <div className="bg-background text-muted-foreground flex h-44 items-center justify-center border-t">
-        Add other sections
+
+      <div className="bg-foreground/2 h-44 py-24 w-full flex flex-col items-center justify-center border-t">
+        <p className="text-foreground/70 text-center text-lg font-medium">
+          Used by top companies
+        </p>
+        <div className="*: container mt-4 flex items-center justify-around gap-5 *:opacity-40 *:brightness-0 *:transition-all *:duration-300 *:hover:opacity-100 *:hover:brightness-100 lg:mt-8 *:not-hover:dark:invert">
+          <img src="/images/companies/loom.png" className="h-8" alt="Company" />
+          <img
+            src="/images/companies/notion.png"
+            className="h-9"
+            alt="Company"
+          />
+          <img
+            src="/images/companies/slack.png"
+            className="h-8 max-sm:hidden"
+            alt="Company"
+          />
+          <img
+            src="/images/companies/hubspot.png"
+            className="h-8 max-md:hidden"
+            alt="Company"
+          />
+          <img
+            src="/images/companies/dropbox.png"
+            className="h-8 max-md:hidden"
+            alt="Company"
+          />
+        </div>
       </div>
     </div>
   )

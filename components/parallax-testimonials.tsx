@@ -1,50 +1,50 @@
-"use client"
+'use client'
 
-import { motion, useInView, useScroll, useTransform } from "framer-motion"
-import { useRef } from "react"
-import { Card } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Star, Quote } from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Card } from '@/components/ui/card'
+import { motion, useInView, useScroll, useTransform } from 'framer-motion'
+import { Quote, Star } from 'lucide-react'
+import { useRef } from 'react'
 
 const testimonials = [
   {
-    name: "María González",
-    role: "Fundadora de Boutique Luna",
+    name: 'María González',
+    role: 'Fundadora de Boutique Luna',
     content:
-      "Propio transformó completamente mi negocio. En 3 meses aumenté mis ventas un 300% y ahora tengo presencia internacional.",
-    avatar: "/placeholder.svg?height=60&width=60",
+      'Propio transformó completamente mi negocio. En 3 meses aumenté mis ventas un 300% y ahora tengo presencia internacional.',
+    avatar: '/placeholder.svg?height=60&width=60',
     rating: 5,
-    sales: "+300%",
-    color: "from-pink-500 to-rose-500",
+    sales: '+300%',
+    color: 'from-pink-500 to-rose-500',
   },
   {
-    name: "Carlos Mendoza",
-    role: "CEO de TechStore MX",
+    name: 'Carlos Mendoza',
+    role: 'CEO de TechStore MX',
     content:
-      "La facilidad de uso es increíble. Migré de otra plataforma en solo 2 días y mis clientes notaron la diferencia inmediatamente.",
-    avatar: "/placeholder.svg?height=60&width=60",
+      'La facilidad de uso es increíble. Migré de otra plataforma en solo 2 días y mis clientes notaron la diferencia inmediatamente.',
+    avatar: '/placeholder.svg?height=60&width=60',
     rating: 5,
-    sales: "+150%",
-    color: "from-blue-500 to-cyan-500",
+    sales: '+150%',
+    color: 'from-blue-500 to-cyan-500',
   },
   {
-    name: "Ana Rodríguez",
-    role: "Directora de Artesanías del Sur",
+    name: 'Ana Rodríguez',
+    role: 'Directora de Artesanías del Sur',
     content:
-      "El soporte en español es excepcional. Siempre hay alguien disponible para ayudarme a crecer mi negocio artesanal.",
-    avatar: "/placeholder.svg?height=60&width=60",
+      'El soporte en español es excepcional. Siempre hay alguien disponible para ayudarme a crecer mi negocio artesanal.',
+    avatar: '/placeholder.svg?height=60&width=60',
     rating: 5,
-    sales: "+200%",
-    color: "from-green-500 to-emerald-500",
+    sales: '+200%',
+    color: 'from-green-500 to-emerald-500',
   },
 ]
 
 export function ParallaxTestimonials() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(containerRef, { once: true, margin: "-100px" })
+  const isInView = useInView(containerRef, { once: true, margin: '-100px' })
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"],
+    offset: ['start end', 'end start'],
   })
 
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -50])
@@ -54,7 +54,11 @@ export function ParallaxTestimonials() {
   const transforms = [y1, y2, y3]
 
   return (
-    <section ref={containerRef} className="py-32 relative overflow-hidden">
+    <section
+      ref={containerRef}
+      className="py-32 relative overflow-hidden"
+      id="testimonials"
+    >
       <div className="absolute inset-0 gradient-mesh" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -65,13 +69,14 @@ export function ParallaxTestimonials() {
           className="text-center mb-20"
         >
           <h2 className="text-4xl md:text-6xl font-bold text-balance mb-6">
-            Historias de{" "}
+            Historias de{' '}
             <span className="bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
               éxito real
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
-            Descubre cómo emprendedores como tú han transformado sus negocios con Propio
+            Descubre cómo emprendedores como tú han transformado sus negocios
+            con Propio
           </p>
         </motion.div>
 
@@ -85,7 +90,7 @@ export function ParallaxTestimonials() {
               transition={{
                 duration: 0.8,
                 delay: index * 0.2,
-                ease: "easeOut",
+                ease: 'easeOut',
               }}
               whileHover={{
                 rotateY: 5,
@@ -108,7 +113,7 @@ export function ParallaxTestimonials() {
                   transition={{
                     duration: 4,
                     repeat: Number.POSITIVE_INFINITY,
-                    ease: "easeInOut",
+                    ease: 'easeInOut',
                   }}
                 >
                   <Quote className="w-16 h-16 text-primary" />
@@ -128,7 +133,7 @@ export function ParallaxTestimonials() {
                         animate={isInView ? { scale: 1, rotate: 0 } : {}}
                         transition={{
                           delay: 0.7 + index * 0.1 + i * 0.1,
-                          type: "spring",
+                          type: 'spring',
                           stiffness: 200,
                         }}
                       >
@@ -137,27 +142,37 @@ export function ParallaxTestimonials() {
                     ))}
                   </motion.div>
 
-                  <blockquote className="text-lg mb-6 text-pretty leading-relaxed">"{testimonial.content}"</blockquote>
+                  <blockquote className="text-lg mb-6 text-pretty leading-relaxed">
+                    "{testimonial.content}"
+                  </blockquote>
 
                   <div className="flex items-center gap-4">
                     <Avatar className="w-12 h-12">
-                      <AvatarImage src={testimonial.avatar || "/placeholder.svg"} />
+                      <AvatarImage
+                        src={testimonial.avatar || '/placeholder.svg'}
+                      />
                       <AvatarFallback>
                         {testimonial.name
-                          .split(" ")
+                          .split(' ')
                           .map((n) => n[0])
-                          .join("")}
+                          .join('')}
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
                       <div className="font-semibold">{testimonial.name}</div>
-                      <div className="text-sm text-muted-foreground">{testimonial.role}</div>
+                      <div className="text-sm text-muted-foreground">
+                        {testimonial.role}
+                      </div>
                     </div>
                     <motion.div
                       className={`px-3 py-1 rounded-full bg-gradient-to-r ${testimonial.color} text-white text-sm font-bold`}
                       animate={{
                         scale: [1, 1.05, 1],
-                        boxShadow: ["0 0 0 0 rgba(0,0,0,0)", "0 0 0 4px rgba(0,0,0,0.1)", "0 0 0 0 rgba(0,0,0,0)"],
+                        boxShadow: [
+                          '0 0 0 0 rgba(0,0,0,0)',
+                          '0 0 0 4px rgba(0,0,0,0.1)',
+                          '0 0 0 0 rgba(0,0,0,0)',
+                        ],
                       }}
                       transition={{
                         duration: 2,

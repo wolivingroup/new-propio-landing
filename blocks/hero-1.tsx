@@ -29,7 +29,7 @@ const Hero1 = () => {
               <p>Built for everyday speed</p>
             </div>
 
-            <RevealText className="mt-3 text-2xl leading-[1.25] font-semibold sm:text-3xl lg:text-4xl">
+            <RevealText className="mt-3 text-2xl leading-[1.15] font-semibold sm:text-3xl lg:text-5xl">
               Smarter Workflows. Faster Results.{' '}
               <span className="text-primary">Better Clarity.</span>
             </RevealText>
@@ -38,6 +38,19 @@ const Hero1 = () => {
               growth, and everyday creative momentum across all your important
               projects.
             </p>
+            <div className="mt-4 flex items-center justify-center lg:justify-start space-x-8 text-sm text-muted-foreground">
+              {[
+                'Sin comisiones por venta',
+                'Escalabilidad ilimitada',
+                'Soporte 24/7',
+              ].map((text, index) => (
+                <div key={text} className="flex items-center">
+                  <div className="w-2 h-2 bg-primary rounded-full mr-2"></div>
+                  {text}
+                </div>
+              ))}
+            </div>
+
             <div className="mt-auto flex flex-wrap items-center gap-3">
               <TextFallButton className="bg-primary text-primary-foreground cursor-pointer overflow-hidden rounded-full py-2 ps-4 pe-5 font-medium">
                 Start Free Trial

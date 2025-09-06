@@ -15,7 +15,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main>
+      <main className="lg:mt-0 mt-12">
         <Hero1 />
         <Hero4 />
         <HeroSection />
