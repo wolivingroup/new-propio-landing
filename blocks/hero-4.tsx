@@ -67,7 +67,7 @@ const Customers = () => {
 const Hero4 = () => {
   return (
     <div className="bg-background">
-      <div className="container mx-auto pt-4 sm:pt-8 lg:pt-12 2xl:pt-16">
+      <div className="container mx-auto pt-4 sm:pt-8">
         <div className="flex items-center justify-center">
           <div className="max-w-3xl">
             <RevealOnScroll
