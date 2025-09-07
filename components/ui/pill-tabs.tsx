@@ -56,7 +56,7 @@ const PillTabs = React.forwardRef<HTMLDivElement, PillTabsProps>(
             type="button"
             onClick={() => handleClick(tab.id)}
             className={cn(
-              'relative px-4 py-2 rounded-full transition touch-none',
+              'relative px-2 sm:px-4 py-2 rounded-full transition touch-none',
               'text-sm font-medium',
               activeTab === tab.id
                 ? 'text-primary-foreground'

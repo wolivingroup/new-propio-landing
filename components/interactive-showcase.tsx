@@ -103,7 +103,7 @@ export function InteractiveShowcase() {
         <div className="w-full grid grid-cols-1 2xl:grid-cols-[1fr_auto] mx-auto gap-10 overflow-x-hidden">
           <StaggerOnScroll
             effect="slideInRight"
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 h-[494px] gap-4 max-w-4xl mx-auto"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 h-auto xl:h-[494px] gap-4 max-w-4xl mx-auto"
           >
             {showcaseItems.map((item, index) => {
               const Icon = item.icon
@@ -153,7 +153,7 @@ export function InteractiveShowcase() {
             })}
           </StaggerOnScroll>
 
-          <div className="flex min-h-120 lg:min-w-[416px] flex-col items-center gap-8 mt-5 lg:mt-0 w-max mx-auto">
+          <div className="flex min-h-100 sm:min-h-120 lg:min-w-[416px] flex-col items-center gap-8 mt-5 lg:mt-0 w-max mx-auto">
             <PillTabs onTabChange={(e) => setKey(e)} />
 
             <FlipReveal
@@ -166,63 +166,63 @@ export function InteractiveShowcase() {
                 <img
                   src="https://images.unsplash.com/photo-1696086152504-4843b2106ab4?q=80&w=300"
                   alt="Shirt"
-                  className="size-20 rounded-md sm:size-24 xl:size-32"
+                  className="size-20 rounded-md sm:size-28 xl:size-32"
                 />
               </FlipRevealItem>
               <FlipRevealItem flipKey="goggles">
                 <img
                   src="https://images.unsplash.com/photo-1648688135643-2716ec8f4b24?q=80&w=300"
                   alt="Goggles"
-                  className="size-20 rounded-md sm:size-24 xl:size-32"
+                  className="size-20 rounded-md sm:size-28 xl:size-32"
                 />
               </FlipRevealItem>
               <FlipRevealItem flipKey="shoes">
                 <img
                   src="https://images.unsplash.com/photo-1631984564919-1f6b2313a71c?q=80&w=300"
                   alt="Shoes"
-                  className="size-20 rounded-md sm:size-24 xl:size-32"
+                  className="size-20 rounded-md sm:size-28 xl:size-32"
                 />
               </FlipRevealItem>
               <FlipRevealItem flipKey="goggles">
                 <img
                   src="https://images.unsplash.com/photo-1632168844625-b22d7b1053c0?q=80&w=300"
                   alt="Goggles"
-                  className="size-20 rounded-md sm:size-24 xl:size-32"
+                  className="size-20 rounded-md sm:size-28 xl:size-32"
                 />
               </FlipRevealItem>
               <FlipRevealItem flipKey="shirt">
                 <img
                   src="https://images.unsplash.com/photo-1583656346517-4716a62e27b7?q=80&w=300"
                   alt="Shirt"
-                  className="size-20 rounded-md sm:size-24 xl:size-32"
+                  className="size-20 rounded-md sm:size-28 xl:size-32"
                 />
               </FlipRevealItem>
               <FlipRevealItem flipKey="shoes">
                 <img
                   src="https://images.unsplash.com/photo-1596480370804-cff0eed14888?q=80&w=300"
                   alt="Shoes"
-                  className="size-20 rounded-md sm:size-24 xl:size-32"
+                  className="size-20 rounded-md sm:size-28 xl:size-32"
                 />
               </FlipRevealItem>
               <FlipRevealItem flipKey="shirt">
                 <img
                   src="https://images.unsplash.com/photo-1740711152088-88a009e877bb?q=80&w=300"
                   alt="Goggles"
-                  className="size-20 rounded-md sm:size-24 xl:size-32"
+                  className="size-20 rounded-md sm:size-28 xl:size-32"
                 />
               </FlipRevealItem>{' '}
               <FlipRevealItem flipKey="shoes">
                 <img
                   src="https://images.unsplash.com/photo-1696086152508-1711cc7bcc9d?q=80&w=300"
                   alt="Shoes"
-                  className="size-20 rounded-md sm:size-24 xl:size-32"
+                  className="size-20 rounded-md sm:size-28 xl:size-32"
                 />
               </FlipRevealItem>
               <FlipRevealItem flipKey="goggles">
                 <img
                   src="https://images.unsplash.com/photo-1684790369514-f292d2dffc11?q=80&w=300"
                   alt="Goggles"
-                  className="size-20 rounded-md sm:size-24 xl:size-32"
+                  className="size-20 rounded-md sm:size-28 xl:size-32"
                 />
               </FlipRevealItem>
             </FlipReveal>

@@ -2,9 +2,26 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card } from '@/components/ui/card'
-import { motion, useInView, useScroll, useTransform } from 'framer-motion'
+import { cn } from '@/lib/utils'
+import {
+  MotionValue,
+  motion,
+  useInView,
+  useScroll,
+  useTransform,
+} from 'framer-motion'
 import { Quote, Star } from 'lucide-react'
 import { useRef } from 'react'
+
+type Testimonial = {
+  name: string
+  role: string
+  content: string
+  avatar: string
+  rating: number
+  sales: string
+  color: string
+}
 
 const testimonials = [
   {
@@ -47,12 +64,6 @@ export function ParallaxTestimonials() {
     offset: ['start end', 'end start'],
   })
 
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -50])
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, 50])
-  const y3 = useTransform(scrollYProgress, [0, 1], [0, -30])
-
-  const transforms = [y1, y2, y3]
-
   return (
     <section
       ref={containerRef}
@@ -82,113 +93,154 @@ export function ParallaxTestimonials() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={index}
-              style={{ y: transforms[index] }}
-              initial={{ opacity: 0, rotateY: -15, z: -100 }}
-              animate={isInView ? { opacity: 1, rotateY: 0, z: 0 } : {}}
-              transition={{
-                duration: 0.8,
-                delay: index * 0.2,
-                ease: 'easeOut',
-              }}
-              whileHover={{
-                rotateY: 5,
-                z: 50,
-                transition: { duration: 0.3 },
-              }}
-              className="group perspective-1000"
-            >
-              <Card className="p-8 h-full glass-effect border-0 relative overflow-hidden transform-gpu">
-                <motion.div
-                  className={`absolute inset-0 bg-gradient-to-br ${testimonial.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
-                />
-
-                <motion.div
-                  className="absolute top-4 right-4 opacity-10"
-                  animate={{
-                    rotate: [0, 5, -5, 0],
-                    scale: [1, 1.1, 1],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Number.POSITIVE_INFINITY,
-                    ease: 'easeInOut',
-                  }}
-                >
-                  <Quote className="w-16 h-16 text-primary" />
-                </motion.div>
-
-                <div className="relative z-10">
-                  <motion.div
-                    className="flex gap-1 mb-6"
-                    initial={{ opacity: 0 }}
-                    animate={isInView ? { opacity: 1 } : {}}
-                    transition={{ delay: 0.5 + index * 0.1 }}
-                  >
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ scale: 0, rotate: -180 }}
-                        animate={isInView ? { scale: 1, rotate: 0 } : {}}
-                        transition={{
-                          delay: 0.7 + index * 0.1 + i * 0.1,
-                          type: 'spring',
-                          stiffness: 200,
-                        }}
-                      >
-                        <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                      </motion.div>
-                    ))}
-                  </motion.div>
-
-                  <blockquote className="text-lg mb-6 text-pretty leading-relaxed">
-                    "{testimonial.content}"
-                  </blockquote>
-
-                  <div className="flex items-center gap-4">
-                    <Avatar className="w-12 h-12">
-                      <AvatarImage
-                        src={testimonial.avatar || '/placeholder.svg'}
-                      />
-                      <AvatarFallback>
-                        {testimonial.name
-                          .split(' ')
-                          .map((n) => n[0])
-                          .join('')}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1">
-                      <div className="font-semibold">{testimonial.name}</div>
-                      <div className="text-sm text-muted-foreground">
-                        {testimonial.role}
-                      </div>
-                    </div>
-                    <motion.div
-                      className={`px-3 py-1 rounded-full bg-gradient-to-r ${testimonial.color} text-white text-sm font-bold`}
-                      animate={{
-                        scale: [1, 1.05, 1],
-                        boxShadow: [
-                          '0 0 0 0 rgba(0,0,0,0)',
-                          '0 0 0 4px rgba(0,0,0,0.1)',
-                          '0 0 0 0 rgba(0,0,0,0)',
-                        ],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Number.POSITIVE_INFINITY,
-                        delay: index * 0.5,
-                      }}
-                    >
-                      {testimonial.sales}
-                    </motion.div>
-                  </div>
-                </div>
-              </Card>
-            </motion.div>
+            <>
+              <MotionCardWrapper
+                key={testimonial.name}
+                index={index}
+                testimonial={testimonial}
+                scrollYProgress={scrollYProgress}
+                isInView={isInView}
+                className="hidden lg:block"
+              />
+              <MotionCardWrapper
+                key={testimonial.name}
+                index={index}
+                testimonial={testimonial}
+                scrollYProgress={scrollYProgress}
+                isInView={isInView}
+                isMobile
+                className="lg:hidden block"
+              />
+            </>
           ))}
         </div>
       </div>
     </section>
+  )
+}
+
+export const MotionCardWrapper = ({
+  testimonial,
+  index,
+  scrollYProgress,
+  isInView,
+  className,
+  isMobile,
+}: {
+  testimonial: Testimonial
+  index: number
+  scrollYProgress: MotionValue<number>
+  isInView: boolean
+  className?: string
+  isMobile?: boolean
+}) => {
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -50])
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, 50])
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, -30])
+
+  const transforms = [y1, y2, y3]
+  return (
+    <motion.div
+      key={index}
+      style={{ y: isMobile ? 0 : transforms[index] }}
+      initial={{ opacity: 0, rotateY: -15, z: -100 }}
+      animate={isInView ? { opacity: 1, rotateY: 0, z: 0 } : {}}
+      transition={{
+        duration: 0.8,
+        delay: index * 0.2,
+        ease: 'easeOut',
+      }}
+      whileHover={{
+        rotateY: 5,
+        z: 50,
+        transition: { duration: 0.3 },
+      }}
+      className={cn('group perspective-1000', className)}
+    >
+      <Card className="p-8 h-full glass-effect border-0 relative overflow-hidden transform-gpu">
+        <motion.div
+          className={`absolute inset-0 bg-gradient-to-br ${testimonial.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
+        />
+
+        <motion.div
+          className="absolute top-4 right-4 opacity-10"
+          animate={{
+            rotate: [0, 5, -5, 0],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: 'easeInOut',
+          }}
+        >
+          <Quote className="w-16 h-16 text-primary" />
+        </motion.div>
+
+        <div className="relative z-10">
+          <motion.div
+            className="flex gap-1 mb-6"
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ delay: 0.5 + index * 0.1 }}
+          >
+            {[...Array(testimonial.rating)].map((_, i) => (
+              <motion.div
+                key={i}
+                initial={{ scale: 0, rotate: -180 }}
+                animate={isInView ? { scale: 1, rotate: 0 } : {}}
+                transition={{
+                  delay: 0.7 + index * 0.1 + i * 0.1,
+                  type: 'spring',
+                  stiffness: 200,
+                }}
+              >
+                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <blockquote className="text-lg mb-6 text-pretty leading-relaxed">
+            "{testimonial.content}"
+          </blockquote>
+
+          <div className="flex items-center gap-4">
+            <Avatar className="w-12 h-12">
+              <AvatarImage src={testimonial.avatar || '/placeholder.svg'} />
+              <AvatarFallback>
+                {testimonial.name
+                  .split(' ')
+                  .map((n) => n[0])
+                  .join('')}
+              </AvatarFallback>
+            </Avatar>
+            <div className="flex-1">
+              <div className="font-semibold">{testimonial.name}</div>
+              <div className="text-sm text-muted-foreground">
+                {testimonial.role}
+              </div>
+            </div>
+            <motion.div
+              className={`px-3 py-1 rounded-full bg-gradient-to-r ${testimonial.color} text-white text-sm font-bold`}
+              animate={{
+                scale: [1, 1.05, 1],
+                boxShadow: [
+                  '0 0 0 0 rgba(0,0,0,0)',
+                  '0 0 0 4px rgba(0,0,0,0.1)',
+                  '0 0 0 0 rgba(0,0,0,0)',
+                ],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Number.POSITIVE_INFINITY,
+                delay: index * 0.5,
+              }}
+            >
+              {testimonial.sales}
+            </motion.div>
+          </div>
+        </div>
+      </Card>
+    </motion.div>
   )
 }
