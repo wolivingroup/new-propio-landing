@@ -110,15 +110,14 @@ export default function SimplePricing() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 + index * 0.1 }}
-              whileHover={{ y: -10, scale: 1.02 }}
               className="flex h-full w-full"
             >
               <Card
                 className={cn(
-                  'bg-card/10 relative h-full w-full text-left transition-all duration-300 hover:shadow-lg',
+                  'bg-card/10 relative h-full w-full text-left transition-all duration-[400ms] hover:-translate-y-3 hover:shadow-lg hover:scale-[1.02]',
                   plan.popular
                     ? 'border-primary/50 dark:shadow-primary/10 shadow-md border-2'
-                    : 'hover:border-primary/30',
+                    : 'hover:border-primary/50',
                   plan.popular &&
                     'from-primary/[0.03] bg-gradient-to-b to-transparent',
                 )}

@@ -1,8 +1,12 @@
-"use client"
+'use client'
 
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Play } from "lucide-react"
-import { motion } from "framer-motion"
+import { Button } from '@/components/ui/button'
+import { motion } from 'framer-motion'
+import { ArrowRight, Play } from 'lucide-react'
+import {
+  RippleButton,
+  RippleButtonRipples,
+} from './animate-ui/components/buttons/ripple'
 
 export function HeroSection() {
   return (
@@ -29,7 +33,8 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Crea tu <span className="text-primary">tienda online</span> sin límites
+              Crea tu <span className="text-primary">tienda online</span> sin
+              límites
             </motion.h1>
 
             <motion.p
@@ -38,8 +43,9 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              Propio es la plataforma multitenant que permite a emprendedores crear, gestionar y escalar sus tiendas
-              online con facilidad. Sin restricciones técnicas, con todas las herramientas que necesitas.
+              Propio es la plataforma multitenant que permite a emprendedores
+              crear, gestionar y escalar sus tiendas online con facilidad. Sin
+              restricciones técnicas, con todas las herramientas que necesitas.
             </motion.p>
 
             <motion.div
@@ -48,14 +54,26 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button size="lg" className="text-lg px-8">
-                  Empieza Gratis
+              <motion.div>
+                <RippleButton
+                  variant="default"
+                  className="rounded-sm text-lg px-8"
+                  size="lg"
+                >
+                  Empezar ahora
                   <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+                  <RippleButtonRipples />
+                </RippleButton>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button variant="outline" size="lg" className="text-lg px-8 bg-transparent">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="text-lg px-8 bg-transparent"
+                >
                   <Play className="mr-2 h-5 w-5" />
                   Ver Demo
                 </Button>
@@ -68,7 +86,11 @@ export function HeroSection() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.8 }}
             >
-              {["Sin comisiones por venta", "Escalabilidad ilimitada", "Soporte 24/7"].map((text, index) => (
+              {[
+                'Sin comisiones por venta',
+                'Escalabilidad ilimitada',
+                'Soporte 24/7',
+              ].map((text, index) => (
                 <motion.div
                   key={text}
                   className="flex items-center"
@@ -106,12 +128,20 @@ export function HeroSection() {
             <motion.div
               className="absolute -top-4 -right-4 w-24 h-24 bg-primary/20 rounded-full blur-xl"
               animate={{ y: [-10, 10, -10] }}
-              transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+              transition={{
+                duration: 4,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: 'easeInOut',
+              }}
             />
             <motion.div
               className="absolute -bottom-8 -left-8 w-32 h-32 bg-accent/20 rounded-full blur-xl"
               animate={{ y: [10, -10, 10] }}
-              transition={{ duration: 5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+              transition={{
+                duration: 5,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: 'easeInOut',
+              }}
             />
           </motion.div>
         </div>
