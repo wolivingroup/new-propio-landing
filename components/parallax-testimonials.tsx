@@ -11,7 +11,7 @@ import {
   useTransform,
 } from 'framer-motion'
 import { Quote, Star } from 'lucide-react'
-import { useRef } from 'react'
+import { Fragment, useRef } from 'react'
 
 type Testimonial = {
   name: string
@@ -93,7 +93,7 @@ export function ParallaxTestimonials() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {testimonials.map((testimonial, index) => (
-            <>
+            <Fragment key={testimonial.name}>
               <MotionCardWrapper
                 key={testimonial.name}
                 index={index}
@@ -103,7 +103,7 @@ export function ParallaxTestimonials() {
                 className="hidden lg:block"
               />
               <MotionCardWrapper
-                key={testimonial.name}
+                key={testimonial.content}
                 index={index}
                 testimonial={testimonial}
                 scrollYProgress={scrollYProgress}
@@ -111,7 +111,7 @@ export function ParallaxTestimonials() {
                 isMobile
                 className="lg:hidden block"
               />
-            </>
+            </Fragment>
           ))}
         </div>
       </div>

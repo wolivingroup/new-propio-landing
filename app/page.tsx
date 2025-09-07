@@ -7,8 +7,8 @@ import { Header } from '@/components/header'
 import { HeroSection } from '@/components/hero-section'
 import { ImmersiveCTA } from '@/components/immersive-cta'
 import { InteractiveShowcase } from '@/components/interactive-showcase'
+import SimplePricing from '@/components/mvpblocks/simple-pricing'
 import { ParallaxTestimonials } from '@/components/parallax-testimonials'
-import { PricingSection } from '@/components/pricing-section'
 import { ScrollAnimation } from '@/components/scroll-animation'
 
 export default function HomePage() {
@@ -28,7 +28,7 @@ export default function HomePage() {
         </ScrollAnimation>
         <ParallaxTestimonials />
         <ScrollAnimation animation="scale-in" delay={100}>
-          <PricingSection />
+          <SimplePricing />
         </ScrollAnimation>
         <ImmersiveCTA />
       </main>

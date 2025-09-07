@@ -195,6 +195,24 @@
       );
   }
 
+  .gradient-mesh-reverse {
+    background: radial-gradient(
+        circle at 80% 20%,
+        rgba(224, 110, 27, 0.15) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 20% 80%,
+        rgba(192, 81, 2, 0.15) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 40% 40%,
+        rgba(236, 155, 80, 0.1) 0%,
+        transparent 50%
+      );
+  }
+
   .floating-animation {
     animation: float 6s ease-in-out infinite;
   }
