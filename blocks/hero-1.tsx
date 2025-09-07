@@ -18,7 +18,7 @@ const avatars = [
 
 const Hero1 = () => {
   return (
-    <main className="bg-gradient-to-br from-background via-card to-background min-h-[75vh] pt-16 flex items-center justify-center">
+    <main className="bg-gradient-to-br from-background via-card to-background min-h-[75vh] pt-4 md:pt-16 flex items-center justify-center">
       <div className="container grid place-content-center overflow-hidden p-4 sm:p-6 lg:p-12 mx-auto">
         <div className="grid h-full grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-12">
           <div className="order-2 flex flex-col items-start lg:order-1">
@@ -38,7 +38,7 @@ const Hero1 = () => {
               growth, and everyday creative momentum across all your important
               projects.
             </p>
-            <div className="mt-4 flex items-center justify-center lg:justify-start space-x-8 text-sm text-muted-foreground">
+            <div className="mt-4 2xl:mb-0 mb-6 flex items-center flex-wrap w-full gap-y-2 justify-start space-x-8 text-xs md:text-sm text-muted-foreground">
               {[
                 'Sin comisiones por venta',
                 'Escalabilidad ilimitada',

@@ -1,10 +1,8 @@
 'use client'
 
-import type React from 'react'
-
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
-import { motion, useInView, useMotionValue } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import {
   BarChart3,
   Globe,
@@ -14,7 +12,10 @@ import {
   Zap,
 } from 'lucide-react'
 import { useRef, useState } from 'react'
+import { FlipReveal, FlipRevealItem } from './gsap/flip-reveal'
 import { StaggerOnScroll } from './gsap/stagger-on-scroll'
+
+import { PillTabs } from './ui/pill-tabs'
 
 const showcaseItems = [
   {
@@ -64,25 +65,12 @@ const showcaseItems = [
 export function InteractiveShowcase() {
   const containerRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(containerRef, { once: true, margin: '-100px' })
+
+  const [key, setKey] = useState('all')
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-
-  const handleMouseMove = (event: React.MouseEvent) => {
-    const rect = containerRef.current?.getBoundingClientRect()
-    if (rect) {
-      mouseX.set(event.clientX - rect.left)
-      mouseY.set(event.clientY - rect.top)
-    }
-  }
-
   return (
-    <section
-      className="py-32 relative overflow-hidden"
-      ref={containerRef}
-      onMouseMove={handleMouseMove}
-    >
+    <section className="py-32 relative overflow-hidden" ref={containerRef}>
       <div className="absolute inset-0 gradient-mesh" />
       <div className="absolute inset-0 morphing-gradient opacity-5" />
 
@@ -112,59 +100,134 @@ export function InteractiveShowcase() {
           </p>
         </motion.div>
 
-        <StaggerOnScroll
-          effect="slideInRight"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
-        >
-          {showcaseItems.map((item, index) => {
-            const Icon = item.icon
-            return (
-              <motion.div
-                key={index}
-                whileHover={{
-                  y: -10,
-                  rotateY: 5,
-                  scale: 1.05,
-                  transition: { duration: 0.3 },
-                }}
-                onHoverStart={() => setHoveredIndex(index)}
-                onHoverEnd={() => setHoveredIndex(null)}
-                className="group perspective-1000"
-              >
-                <Card className="p-8 h-full glass-effect border-0 relative overflow-hidden transform-gpu">
-                  <motion.div
-                    className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
-                    animate={{
-                      scale: hoveredIndex === index ? 1.02 : 1,
-                      rotate: hoveredIndex === index ? 2 : 0,
-                    }}
-                  />
+        <div className="w-full grid grid-cols-1 2xl:grid-cols-[1fr_auto] mx-auto gap-10 overflow-x-hidden">
+          <StaggerOnScroll
+            effect="slideInRight"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 h-[494px] gap-4 max-w-4xl mx-auto"
+          >
+            {showcaseItems.map((item, index) => {
+              const Icon = item.icon
+              return (
+                <motion.div
+                  key={index}
+                  whileHover={{
+                    scale: 1.05,
+                    transition: { duration: 0.3 },
+                  }}
+                  onHoverStart={() => setHoveredIndex(index)}
+                  onHoverEnd={() => setHoveredIndex(null)}
+                  className="group perspective-1000 max-w-max mx-auto max-h-max h-[230px]"
+                >
+                  <Card className="p-6 pb-0 h-full glass-effect w-[280px] max-h-[230px] gap-4 border-0 relative overflow-hidden transform-gpu">
+                    <motion.div
+                      className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
+                      animate={{
+                        scale: hoveredIndex === index ? 1.02 : 1,
+                        rotate: hoveredIndex === index ? 2 : 0,
+                      }}
+                    />
 
-                  <motion.div
-                    className="relative z-10"
-                    animate={{
-                      scale: hoveredIndex === index ? 1.02 : 1,
-                    }}
-                    transition={{ duration: 0.6, ease: 'easeInOut' }}
-                  >
-                    <div
-                      className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${item.color} p-4 mb-6 shadow-lg`}
+                    <motion.div
+                      className="relative z-10"
+                      animate={{
+                        scale: hoveredIndex === index ? 1.02 : 1,
+                      }}
+                      transition={{ duration: 0.6, ease: 'easeInOut' }}
                     >
-                      <Icon className="w-full h-full text-white" />
-                    </div>
-                  </motion.div>
+                      <div
+                        className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${item.color} p-4 mb-2 shadow-lg`}
+                      >
+                        <Icon className="w-full h-full text-white" />
+                      </div>
+                    </motion.div>
 
-                  <h3 className="text-2xl font-bold mb-3 relative z-10">
-                    {item.title}
-                  </h3>
-                  <p className="text-muted-foreground text-lg relative z-10">
-                    {item.description}
-                  </p>
-                </Card>
-              </motion.div>
-            )
-          })}
-        </StaggerOnScroll>
+                    <h3 className="text-xl font-bold relative z-10">
+                      {item.title}
+                    </h3>
+                    <p className="text-muted-foreground text-base text-light relative z-10">
+                      {item.description}
+                    </p>
+                  </Card>
+                </motion.div>
+              )
+            })}
+          </StaggerOnScroll>
+
+          <div className="flex min-h-120 lg:min-w-[416px] flex-col items-center gap-8 mt-5 lg:mt-0 w-max mx-auto">
+            <PillTabs onTabChange={(e) => setKey(e)} />
+
+            <FlipReveal
+              className="grid grid-cols-3 gap-3 sm:gap-4"
+              keys={[key]}
+              showClass="flex"
+              hideClass="hidden"
+            >
+              <FlipRevealItem flipKey="shirt">
+                <img
+                  src="https://images.unsplash.com/photo-1696086152504-4843b2106ab4?q=80&w=300"
+                  alt="Shirt"
+                  className="size-20 rounded-md sm:size-24 xl:size-32"
+                />
+              </FlipRevealItem>
+              <FlipRevealItem flipKey="goggles">
+                <img
+                  src="https://images.unsplash.com/photo-1648688135643-2716ec8f4b24?q=80&w=300"
+                  alt="Goggles"
+                  className="size-20 rounded-md sm:size-24 xl:size-32"
+                />
+              </FlipRevealItem>
+              <FlipRevealItem flipKey="shoes">
+                <img
+                  src="https://images.unsplash.com/photo-1631984564919-1f6b2313a71c?q=80&w=300"
+                  alt="Shoes"
+                  className="size-20 rounded-md sm:size-24 xl:size-32"
+                />
+              </FlipRevealItem>
+              <FlipRevealItem flipKey="goggles">
+                <img
+                  src="https://images.unsplash.com/photo-1632168844625-b22d7b1053c0?q=80&w=300"
+                  alt="Goggles"
+                  className="size-20 rounded-md sm:size-24 xl:size-32"
+                />
+              </FlipRevealItem>
+              <FlipRevealItem flipKey="shirt">
+                <img
+                  src="https://images.unsplash.com/photo-1583656346517-4716a62e27b7?q=80&w=300"
+                  alt="Shirt"
+                  className="size-20 rounded-md sm:size-24 xl:size-32"
+                />
+              </FlipRevealItem>
+              <FlipRevealItem flipKey="shoes">
+                <img
+                  src="https://images.unsplash.com/photo-1596480370804-cff0eed14888?q=80&w=300"
+                  alt="Shoes"
+                  className="size-20 rounded-md sm:size-24 xl:size-32"
+                />
+              </FlipRevealItem>
+              <FlipRevealItem flipKey="shirt">
+                <img
+                  src="https://images.unsplash.com/photo-1740711152088-88a009e877bb?q=80&w=300"
+                  alt="Goggles"
+                  className="size-20 rounded-md sm:size-24 xl:size-32"
+                />
+              </FlipRevealItem>{' '}
+              <FlipRevealItem flipKey="shoes">
+                <img
+                  src="https://images.unsplash.com/photo-1696086152508-1711cc7bcc9d?q=80&w=300"
+                  alt="Shoes"
+                  className="size-20 rounded-md sm:size-24 xl:size-32"
+                />
+              </FlipRevealItem>
+              <FlipRevealItem flipKey="goggles">
+                <img
+                  src="https://images.unsplash.com/photo-1684790369514-f292d2dffc11?q=80&w=300"
+                  alt="Goggles"
+                  className="size-20 rounded-md sm:size-24 xl:size-32"
+                />
+              </FlipRevealItem>
+            </FlipReveal>
+          </div>
+        </div>
       </div>
     </section>
   )
