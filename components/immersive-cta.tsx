@@ -1,22 +1,19 @@
-"use client"
+'use client'
 
-import type React from "react"
+import type React from 'react'
 
-import { motion, useInView, useMotionValue, useTransform } from "framer-motion"
-import { useRef, useState } from "react"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Sparkles, Rocket, Zap } from "lucide-react"
+import { Button } from '@/components/ui/button'
+import { motion, useInView, useMotionValue } from 'framer-motion'
+import { ArrowRight, Rocket, Sparkles, Zap } from 'lucide-react'
+import { useRef } from 'react'
+import { TiltCard } from './gsap/tilt-card'
 
 export function ImmersiveCTA() {
   const containerRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(containerRef, { once: true })
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
-
-  const rotateX = useTransform(mouseY, [-300, 300], [10, -10])
-  const rotateY = useTransform(mouseX, [-300, 300], [-10, 10])
 
   const handleMouseMove = (event: React.MouseEvent) => {
     const rect = containerRef.current?.getBoundingClientRect()
@@ -25,7 +22,6 @@ export function ImmersiveCTA() {
       const y = event.clientY - rect.top - rect.height / 2
       mouseX.set(x)
       mouseY.set(y)
-      setMousePosition({ x, y })
     }
   }
 
@@ -59,7 +55,7 @@ export function ImmersiveCTA() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div style={{ rotateX, rotateY }} className="max-w-5xl mx-auto text-center perspective-1000">
+        <TiltCard className="max-w-5xl mx-auto text-center" maxTilt={4}>
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
@@ -69,10 +65,16 @@ export function ImmersiveCTA() {
             <motion.div
               className="absolute inset-0 morphing-gradient opacity-20"
               animate={{ rotate: 360 }}
-              transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+              transition={{
+                duration: 10,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: 'linear',
+              }}
             />
             <Sparkles className="mr-2 h-4 w-4 relative z-10" />
-            <span className="relative z-10">¡Únete a la revolución del e-commerce!</span>
+            <span className="relative z-10">
+              ¡Únete a la revolución del e-commerce!
+            </span>
           </motion.div>
 
           <motion.h2
@@ -85,14 +87,14 @@ export function ImmersiveCTA() {
             <motion.span
               className="block bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent"
               animate={{
-                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
               }}
               transition={{
                 duration: 3,
                 repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
+                ease: 'easeInOut',
               }}
-              style={{ backgroundSize: "200% 200%" }}
+              style={{ backgroundSize: '200% 200%' }}
             >
               dominar el mercado?
             </motion.span>
@@ -104,8 +106,8 @@ export function ImmersiveCTA() {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="text-2xl text-muted-foreground text-pretty mb-12 max-w-3xl mx-auto"
           >
-            Únete a Propio y descubre por qué somos la plataforma de e-commerce que está transformando negocios en toda
-            Latinoamérica.
+            Únete a Propio y descubre por qué somos la plataforma de e-commerce
+            que está transformando negocios en toda Latinoamérica.
           </motion.p>
 
           <motion.div
@@ -114,8 +116,15 @@ export function ImmersiveCTA() {
             transition={{ duration: 0.6, delay: 0.7 }}
             className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12"
           >
-            <motion.div whileHover={{ scale: 1.05, y: -5 }} whileTap={{ scale: 0.95 }} className="relative group">
-              <Button size="lg" className="text-xl px-10 py-6 relative overflow-hidden">
+            <motion.div
+              whileHover={{ scale: 1.05, y: -5 }}
+              whileTap={{ scale: 0.95 }}
+              className="relative group"
+            >
+              <Button
+                size="lg"
+                className="text-xl px-10 py-6 relative overflow-hidden"
+              >
                 <motion.div className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <span className="relative z-10 flex items-center">
                   <Rocket className="mr-3 h-6 w-6" />
@@ -125,7 +134,10 @@ export function ImmersiveCTA() {
               </Button>
             </motion.div>
 
-            <motion.div whileHover={{ scale: 1.05, y: -5 }} whileTap={{ scale: 0.95 }}>
+            <motion.div
+              whileHover={{ scale: 1.05, y: -5 }}
+              whileTap={{ scale: 0.95 }}
+            >
               <Button
                 variant="outline"
                 size="lg"
@@ -144,9 +156,9 @@ export function ImmersiveCTA() {
             className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm"
           >
             {[
-              { icon: "✅", text: "Sin tarjeta de crédito" },
-              { icon: "⚡", text: "Configuración en 5 minutos" },
-              { icon: "🇪🇸", text: "Soporte en español 24/7" },
+              { icon: '✅', text: 'Sin tarjeta de crédito' },
+              { icon: '⚡', text: 'Configuración en 5 minutos' },
+              { icon: '🇪🇸', text: 'Soporte en español 24/7' },
             ].map((item, index) => (
               <motion.div
                 key={index}
@@ -156,11 +168,13 @@ export function ImmersiveCTA() {
                 className="flex items-center justify-center gap-3 p-4 rounded-lg glass-effect"
               >
                 <span className="text-2xl">{item.icon}</span>
-                <span className="text-muted-foreground font-medium">{item.text}</span>
+                <span className="text-muted-foreground font-medium">
+                  {item.text}
+                </span>
               </motion.div>
             ))}
           </motion.div>
-        </motion.div>
+        </TiltCard>
       </div>
     </section>
   )
