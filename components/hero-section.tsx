@@ -88,7 +88,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             <motion.div
-              className="relative z-10 rounded-2xl overflow-hidden shadow-2xl w-max"
+              className="relative z-10 rounded-2xl overflow-hidden shadow-2xl"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
