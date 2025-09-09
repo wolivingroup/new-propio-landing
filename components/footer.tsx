@@ -6,6 +6,7 @@ import {
   Phone,
   Twitter,
 } from 'lucide-react'
+import Image from 'next/image'
 
 const footerLinks = {
   product: [
@@ -46,10 +47,9 @@ export function Footer() {
     <footer className="bg-background border-t border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-2 md:grid-cols-6 gap-8">
-          {/* Brand */}
           <div className="col-span-2">
             <div className="flex items-center mb-4">
-              <h3 className="text-2xl font-bold text-primary">Propio</h3>
+              <Image src="/propio.svg" alt="Propio" width={100} height={100} />
             </div>
             <p className="text-muted-foreground mb-6 max-w-sm">
               La plataforma multitenant que impulsa el crecimiento de tu negocio
@@ -138,7 +138,7 @@ export function Footer() {
         {/* Bottom */}
         <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-muted-foreground text-sm">
-            © 2024 Propio. Todos los derechos reservados.
+            © {new Date().getFullYear()} Propio. Todos los derechos reservados.
           </p>
           <div className="flex items-center space-x-6 mt-4 md:mt-0">
             <div className="flex items-center text-sm text-muted-foreground">

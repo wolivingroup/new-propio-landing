@@ -29,7 +29,7 @@ export function ImmersiveCTA() {
     <section
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="py-32 relative overflow-hidden bg-gradient-to-br from-background via-primary/5 to-accent/10"
+      className="md:py-32 pt-20 pb-32 relative overflow-hidden bg-gradient-to-br from-background via-primary/5 to-accent/10"
     >
       <div className="absolute inset-0">
         {[...Array(20)].map((_, i) => (
@@ -104,7 +104,7 @@ export function ImmersiveCTA() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-2xl text-muted-foreground text-pretty mb-12 max-w-3xl mx-auto"
+            className="text-lg md:text-2xl text-muted-foreground text-pretty mb-12 max-w-3xl mx-auto"
           >
             Únete a Propio y descubre por qué somos la plataforma de e-commerce
             que está transformando negocios en toda Latinoamérica.
@@ -126,7 +126,7 @@ export function ImmersiveCTA() {
                 className="text-xl px-10 py-6 relative overflow-hidden"
               >
                 <motion.div className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span className="relative z-10 flex items-center">
+                <span className="relative text-lg z-10 flex items-center">
                   <Rocket className="mr-3 h-6 w-6" />
                   Crear mi tienda gratis
                   <ArrowRight className="ml-3 h-6 w-6" />
@@ -141,7 +141,7 @@ export function ImmersiveCTA() {
               <Button
                 variant="outline"
                 size="lg"
-                className="text-xl px-10 py-6 glass-effect border-primary/20 hover:border-primary/40 bg-transparent"
+                className="text-lg dark:hover:text-white px-10 py-6 glass-effect border-primary/20 hover:border-primary/40 bg-transparent"
               >
                 <Zap className="mr-3 h-6 w-6" />
                 Ver demo en vivo

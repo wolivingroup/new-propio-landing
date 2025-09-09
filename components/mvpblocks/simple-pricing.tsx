@@ -15,9 +15,12 @@ import { cn } from '@/lib/utils'
 import NumberFlow from '@number-flow/react'
 import { motion } from 'framer-motion'
 import { ArrowRight, Check, Sparkles } from 'lucide-react'
+import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
+import { StarsBackground } from '../animate-ui/components/backgrounds/stars'
 
 export default function SimplePricing() {
+  const { resolvedTheme } = useTheme()
   const [frequency, setFrequency] = useState<string>('monthly')
   const [mounted, setMounted] = useState(false)
 
@@ -29,7 +32,7 @@ export default function SimplePricing() {
 
   return (
     <section
-      className="not-prose relative flex w-full flex-col gap-16 overflow-hidden px-4 py-24 text-center sm:px-8"
+      className="not-prose relative flex w-full flex-col gap-16 overflow-hidden px-4 pt-24 pb-10 md:py-24 text-center sm:px-8"
       id="pricing"
     >
       <div className="absolute inset-0 -z-10 overflow-hidden">
@@ -47,6 +50,14 @@ export default function SimplePricing() {
             <Sparkles className="text-primary mr-1 h-3.5 w-3.5 animate-pulse" />
             Pricing Plans
           </Badge>
+
+          <StarsBackground
+            starColor={resolvedTheme === 'dark' ? '#FFF' : '#000'}
+            className={cn(
+              'absolute inset-0 -z-10 flex items-center justify-center rounded-xl',
+              'dark:bg-[radial-gradient(ellipse_at_bottom,_#262626_0%,_#000_100%)] bg-[radial-gradient(ellipse_at_bottom,_#f5f5f5_0%,_#fff_100%)]',
+            )}
+          />
 
           <motion.h1
             initial={{ opacity: 0, y: 10 }}
@@ -117,7 +128,7 @@ export default function SimplePricing() {
                   'bg-card/10 relative h-full w-full text-left transition-all duration-[400ms] hover:-translate-y-3 hover:shadow-lg hover:scale-[1.02]',
                   plan.popular
                     ? 'border-primary/50 dark:shadow-primary/10 shadow-md border-2'
-                    : 'hover:border-primary/50',
+                    : 'hover:border-primary/50 dark:border-primary/20',
                   plan.popular &&
                     'from-primary/[0.03] bg-gradient-to-b to-transparent',
                 )}
@@ -250,7 +261,7 @@ export default function SimplePricing() {
         </div>
 
         <motion.div
-          className="text-center mt-12"
+          className="text-center md:mt-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}

@@ -183,7 +183,7 @@ const Hero4 = () => {
         <p className="text-foreground/70 text-center text-lg font-medium">
           Used by top companies
         </p>
-        <div className="*: container mt-4 flex items-center justify-around gap-5 *:opacity-40 *:brightness-0 *:transition-all *:duration-300 *:hover:opacity-100 *:hover:brightness-100 lg:mt-8 *:not-hover:dark:invert">
+        <div className="*: container mt-4 flex items-center justify-around gap-5 *:opacity-40 *:brightness-0 *:transition-all *:duration-300 *:hover:opacity-100 *:hover:brightness-100 lg:mt-8 dark:*:hover:filter dark:*:hover:brightness-0 dark:*:hover:invert *:not-hover:dark:invert">
           <img src="/images/companies/loom.png" className="h-8" alt="Company" />
           <img
             src="/images/companies/notion.png"

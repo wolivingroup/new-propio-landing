@@ -11,8 +11,7 @@ import {
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-background via-card to-background">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+      <div className="absolute inset-0 bg-grid-pattern opacity-5" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -79,54 +78,29 @@ export function HeroSection() {
                 </Button>
               </motion.div>
             </motion.div>
-
-            <motion.div
-              className="mt-12 flex items-center justify-center lg:justify-start space-x-8 text-sm text-muted-foreground"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-            >
-              {[
-                'Sin comisiones por venta',
-                'Escalabilidad ilimitada',
-                'Soporte 24/7',
-              ].map((text, index) => (
-                <motion.div
-                  key={text}
-                  className="flex items-center"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.9 + index * 0.1 }}
-                >
-                  <div className="w-2 h-2 bg-primary rounded-full mr-2"></div>
-                  {text}
-                </motion.div>
-              ))}
-            </motion.div>
           </div>
 
           {/* Hero Image */}
           <motion.div
-            className="relative"
+            className="relative max-w-max"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             <motion.div
-              className="relative z-10 rounded-2xl overflow-hidden shadow-2xl"
+              className="relative z-10 rounded-2xl overflow-hidden shadow-2xl w-max"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
               <img
-                src="/placeholder.svg?height=600&width=800"
+                src="/placeholder.svg?height=500&width=500"
                 alt="Dashboard de Propio mostrando múltiples tiendas online"
-                className="w-full h-auto"
+                className="w-full h-auto aspect-square max-w-2xl"
               />
             </motion.div>
 
-            {/* Floating Elements */}
             <motion.div
-              className="absolute -top-4 -right-4 w-24 h-24 bg-primary/20 rounded-full blur-xl"
+              className="absolute -top-4 -right-4 w-24 h-24 dark:bg-primary/50 bg-primary/20 rounded-full blur-xl"
               animate={{ y: [-10, 10, -10] }}
               transition={{
                 duration: 4,
@@ -135,7 +109,7 @@ export function HeroSection() {
               }}
             />
             <motion.div
-              className="absolute -bottom-8 -left-8 w-32 h-32 bg-accent/20 rounded-full blur-xl"
+              className="absolute -bottom-8 -left-8 w-32 h-32 bg-accent/20 rounded-full blur-xl dark:bg-primary/50"
               animate={{ y: [10, -10, 10] }}
               transition={{
                 duration: 5,
