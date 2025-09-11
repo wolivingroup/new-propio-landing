@@ -76,7 +76,7 @@ export default function Feature1() {
             className="absolute inset-0 mx-auto h-44 max-w-xs blur-[118px]"
             style={{
               background:
-                'linear-gradient(152.92deg, rgba(192, 15, 102, 0.2) 4.54%, rgba(192, 11, 109, 0.26) 34.2%, rgba(192, 15, 102, 0.1) 77.55%)',
+                'linear-gradient(152.92deg, rgba(192, 15, 102, 0.2) 4.54%, rgba(235, 124, 50, 0.26) 34.2%, rgba(220, 70, 0, 0.331) 77.55%)',
             }}
           />
         </div>
@@ -90,7 +90,7 @@ export default function Feature1() {
               <motion.li
                 key={item.title}
                 className={cn(
-                  'group z-30 w-full cursor-pointer overflow-hidden transform-gpu relative gap-3 flex flex-col rounded-xl border bg-transparent p-4 [box-shadow:0_-20px_80px_-20px_#ff7aa42f_inset]',
+                  'group z-30 w-full cursor-pointer overflow-hidden transform-gpu relative gap-3 flex flex-col rounded-xl border bg-transparent p-4 [box-shadow:0_-20px_80px_-20px_#e4621030_inset]',
                   "before:absolute before:inset-0 before:rounded-[inherit] before:content-['']",
                   "after:absolute after:inset-0 after:rounded-[inherit] after:content-['']",
                 )}
@@ -125,7 +125,7 @@ export default function Feature1() {
                   />
                 </div>
 
-                <div className="text-primary w-fit transform-gpu rounded-full border p-4 [box-shadow:0_-20px_80px_-20px_#ff7aa43f_inset] dark:[box-shadow:0_-20px_80px_-20px_#ff7aa40f_inset]">
+                <div className="text-primary w-fit transform-gpu rounded-full border p-4 [box-shadow:0_-20px_80px_-20px_#e4611028_inset] dark:[box-shadow:0_-20px_80px_-20px_#e4611028_inset]">
                   {item.icon}
                 </div>
                 <h4 className="font-geist text-lg font-bold tracking-tighter">
