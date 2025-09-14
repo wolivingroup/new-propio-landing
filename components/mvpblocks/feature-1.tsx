@@ -50,7 +50,7 @@ export default function Feature1() {
   const isInView = useInView(containerRef, { once: true, margin: '-100px' })
 
   return (
-    <section className="relative py-14" ref={containerRef}>
+    <section className="relative py-14" ref={containerRef} id="features">
       <div className="mx-auto max-w-screen-xl px-4 md:px-8">
         <div className="relative mx-auto max-w-2xl sm:text-center">
           <div className="relative z-10">
