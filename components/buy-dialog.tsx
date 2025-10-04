@@ -463,7 +463,6 @@ export function BuyDialog({ isOpen, onClose, plan }: BuyDialogProps) {
                             </FormControl>
                             <Button
                               type="button"
-                              variant="outline"
                               className="bg-primary text-primary-foreground hover:bg-primary/90"
                               onClick={() =>
                                 validateDiscountCode(field.value || '')
