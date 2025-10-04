@@ -10,25 +10,78 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { PLANS } from '@/lib/constants'
+import { plans } from '@/lib/plans'
 import { cn } from '@/lib/utils'
 import NumberFlow from '@number-flow/react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Check, Sparkles } from 'lucide-react'
+import {
+  ArrowRight,
+  Check,
+  Shield,
+  Sparkles,
+  Star,
+  Store as StoreIcon,
+  Zap,
+} from 'lucide-react'
 import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { StarsBackground } from '../animate-ui/components/backgrounds/stars'
+import { BuyDialog } from '../buy-dialog'
+
+// Transform plans data to match the expected UI structure
+const transformPlans = (plansData: typeof plans) => {
+  const icons = [Star, Zap, Shield] // Icons for the three plans
+
+  return plansData.map((plan, index) => ({
+    id: plan.value,
+    name: plan.name,
+    icon: icons[index],
+    price: {
+      monthly: plan.pricing.priceValue,
+      yearly: plan.pricing.priceValue, // Using same price for both for now
+    },
+    description: `Plan ${plan.name.toLowerCase()} con todas las funcionalidades incluidas.`,
+    features: plan.list,
+    cta: plan.action,
+    popular: index === 1, // Make the second plan (Anual) popular
+  }))
+}
 
 export default function SimplePricing() {
   const { resolvedTheme } = useTheme()
   const [frequency, setFrequency] = useState<string>('monthly')
   const [mounted, setMounted] = useState(false)
+  const [isBuyDialogOpen, setIsBuyDialogOpen] = useState(false)
+  const [selectedPlan, setSelectedPlan] = useState<{
+    id: string
+    name: string
+    price: number
+    originalPrice?: number
+    discount?: number
+  } | null>(null)
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  if (!mounted) return null
+  const handleBuyClick = (plan: {
+    id: string
+    name: string
+    price: { monthly: number | string; yearly: number | string }
+    cta: string
+  }) => {
+    const transformedPlan = transformPlans(plans).find((p) => p.id === plan.id)
+    if (transformedPlan) {
+      setSelectedPlan({
+        id: transformedPlan.id,
+        name: transformedPlan.name,
+        price: transformedPlan.price[
+          frequency as keyof typeof transformedPlan.price
+        ] as number,
+        originalPrice: transformedPlan.price[
+          frequency as keyof typeof transformedPlan.price
+        ] as number,
+        discount: 0,
+      })
+      setIsBuyDialogOpen(true)
+    }
+  }
 
   return (
     <section
@@ -48,7 +101,7 @@ export default function SimplePricing() {
             className="border-primary/20 bg-primary/5 mb-4 rounded-full px-4 py-1 text-sm font-medium"
           >
             <Sparkles className="text-primary mr-1 h-3.5 w-3.5 animate-pulse" />
-            Pricing Plans
+            Planes de Precios
           </Badge>
 
           <StarsBackground
@@ -65,9 +118,9 @@ export default function SimplePricing() {
             transition={{ duration: 0.5 }}
             className="text-4xl font-bold sm:text-5xl text-balance"
           >
-            Pick the perfect plan{' '}
+            Elige el plan perfecto{' '}
             <span className="bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
-              for your needs
+              para tu negocio
             </span>
           </motion.h1>
           <motion.p
@@ -76,8 +129,8 @@ export default function SimplePricing() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-muted-foreground max-w-md pt-2 text-lg"
           >
-            Simple, transparent pricing that scales with your business. No
-            hidden fees, no surprises.
+            Precios simples y transparentes que crecen con tu negocio. Sin
+            comisiones ocultas, sin sorpresas.
           </motion.p>
         </div>
 
@@ -96,18 +149,18 @@ export default function SimplePricing() {
                 value="monthly"
                 className="data-[state=active]:bg-background dark:data-[state=active]:bg-primary rounded-full transition-all duration-300 data-[state=active]:shadow-sm"
               >
-                Monthly
+                Mensual
               </TabsTrigger>
               <TabsTrigger
                 value="yearly"
                 className="group data-[state=active]:bg-background dark:data-[state=active]:bg-primary rounded-full transition-all duration-300 data-[state=active]:shadow-sm"
               >
-                <span>Yearly</span>
+                <span>Anual</span>
                 <Badge
                   variant="secondary"
                   className="bg-primary/10 dark:group-data-[state=active]:bg-secondary/50 dark:group-data-[state=active]:text-white text-primary hover:bg-primary/15 ml-2"
                 >
-                  20% off
+                  Ahorro
                 </Badge>
               </TabsTrigger>
             </TabsList>
@@ -115,7 +168,7 @@ export default function SimplePricing() {
         </motion.div>
 
         <div className="mt-8 grid w-full max-w-6xl grid-cols-1 gap-6 md:grid-cols-3">
-          {PLANS.map((plan, index) => (
+          {transformPlans(plans).map((plan, index) => (
             <motion.div
               key={plan.id}
               initial={{ opacity: 0, y: 20 }}
@@ -174,7 +227,7 @@ export default function SimplePricing() {
                             )}
                             format={{
                               style: 'currency',
-                              currency: 'USD',
+                              currency: 'BOB',
                               maximumFractionDigits: 0,
                             }}
                             value={
@@ -184,7 +237,7 @@ export default function SimplePricing() {
                             }
                           />
                           <span className="text-muted-foreground ml-1 text-sm">
-                            /month, billed {frequency}
+                            /mes
                           </span>
                         </div>
                       ) : (
@@ -201,12 +254,15 @@ export default function SimplePricing() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="grid gap-3 pb-6">
-                  {plan.features.map((feature, index) => (
+                  {plan.features.map((feature, featureIndex) => (
                     <motion.div
-                      key={index}
+                      key={`${plan.id}-feature-${featureIndex}`}
                       initial={{ opacity: 0, x: -5 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3, delay: 0.5 + index * 0.05 }}
+                      transition={{
+                        duration: 0.3,
+                        delay: 0.5 + featureIndex * 0.05,
+                      }}
                       className="flex items-center gap-2 text-sm"
                     >
                       <div
@@ -233,6 +289,7 @@ export default function SimplePricing() {
                 </CardContent>
                 <CardFooter>
                   <Button
+                    id={plan.id}
                     variant={plan.popular ? 'default' : 'outline'}
                     className={cn(
                       'w-full font-medium transition-all duration-300',
@@ -240,6 +297,7 @@ export default function SimplePricing() {
                         ? 'bg-primary hover:bg-primary/90 hover:shadow-primary/20 hover:shadow-md'
                         : 'hover:border-primary/30 hover:bg-primary/5 hover:text-primary',
                     )}
+                    onClick={() => handleBuyClick(plan)}
                   >
                     {plan.cta}
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -278,6 +336,18 @@ export default function SimplePricing() {
           </p>
         </motion.div>
       </div>
+
+      {/* Buy Dialog */}
+      {selectedPlan && (
+        <BuyDialog
+          isOpen={isBuyDialogOpen}
+          onClose={() => {
+            setIsBuyDialogOpen(false)
+            setSelectedPlan(null)
+          }}
+          plan={selectedPlan}
+        />
+      )}
     </section>
   )
 }
