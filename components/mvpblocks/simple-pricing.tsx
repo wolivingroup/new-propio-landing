@@ -28,7 +28,6 @@ import { useState } from 'react'
 import { StarsBackground } from '../animate-ui/components/backgrounds/stars'
 import { BuyDialog } from '../buy-dialog'
 
-// Transform plans data to match the expected UI structure
 const transformPlans = (plansData: typeof plans) => {
   const icons = [Star, Zap, Shield] // Icons for the three plans
 
@@ -38,12 +37,12 @@ const transformPlans = (plansData: typeof plans) => {
     icon: icons[index],
     price: {
       monthly: plan.pricing.priceValue,
-      yearly: plan.pricing.priceValue, // Using same price for both for now
+      yearly: plan.pricing.priceValue,
     },
     description: `Plan ${plan.name.toLowerCase()} con todas las funcionalidades incluidas.`,
     features: plan.list,
     cta: plan.action,
-    popular: index === 1, // Make the second plan (Anual) popular
+    popular: index === 1,
   }))
 }
 
@@ -304,7 +303,6 @@ export default function SimplePricing() {
                   </Button>
                 </CardFooter>
 
-                {/* Subtle gradient effects */}
                 {plan.popular ? (
                   <>
                     <div className="from-primary/[0.05] pointer-events-none absolute right-0 bottom-0 left-0 h-1/2 rounded-b-lg bg-gradient-to-t to-transparent" />
@@ -337,7 +335,6 @@ export default function SimplePricing() {
         </motion.div>
       </div>
 
-      {/* Buy Dialog */}
       {selectedPlan && (
         <BuyDialog
           isOpen={isBuyDialogOpen}
