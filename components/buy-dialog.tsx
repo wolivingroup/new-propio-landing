@@ -17,7 +17,6 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
-import { cn } from '@/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { motion } from 'framer-motion'
 import { ShoppingCartIcon, X } from 'lucide-react'
@@ -237,7 +236,7 @@ export function BuyDialog({ isOpen, onClose, plan }: BuyDialogProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="!max-w-7xl w-full max-h-[90vh] bg-zinc-900">
+      <DialogContent className="!max-w-7xl w-full max-h-[90vh] dark:bg-zinc-950">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-center sr-only">
             Completar Compra
