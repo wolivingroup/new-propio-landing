@@ -237,7 +237,7 @@ export function BuyDialog({ isOpen, onClose, plan }: BuyDialogProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="!max-w-7xl w-full max-h-[90vh]">
+      <DialogContent className="!max-w-7xl w-full max-h-[90vh] bg-zinc-900">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-center sr-only">
             Completar Compra
