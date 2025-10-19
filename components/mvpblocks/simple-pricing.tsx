@@ -13,7 +13,7 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { plans } from '@/lib/plans'
 import { cn } from '@/lib/utils'
 import NumberFlow from '@number-flow/react'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import {
   ArrowRight,
   Check,
@@ -27,6 +27,7 @@ import { useTheme } from 'next-themes'
 import { useState } from 'react'
 import { StarsBackground } from '../animate-ui/components/backgrounds/stars'
 import { BuyDialog } from '../buy-dialog'
+import { SubscriptionModal } from '../subscription-modal'
 
 const transformPlans = (plansData: typeof plans) => {
   const icons = [Star, Zap, Shield] // Icons for the three plans
@@ -49,8 +50,8 @@ const transformPlans = (plansData: typeof plans) => {
 export default function SimplePricing() {
   const { resolvedTheme } = useTheme()
   const [frequency, setFrequency] = useState<string>('monthly')
-  const [mounted, setMounted] = useState(false)
   const [isBuyDialogOpen, setIsBuyDialogOpen] = useState(false)
+  const [showSubscription, setShowSubscription] = useState(false)
   const [selectedPlan, setSelectedPlan] = useState<{
     id: string
     name: string
@@ -336,6 +337,15 @@ export default function SimplePricing() {
       </div>
 
       {selectedPlan && (
+        <AnimatePresence>
+          <SubscriptionModal
+            onClose={() => setShowSubscription(false)}
+            onSuccess={() => setShowSubscription(false)}
+          />
+        </AnimatePresence>
+      )}
+
+      {/* {selectedPlan && (
         <BuyDialog
           isOpen={isBuyDialogOpen}
           onClose={() => {
@@ -344,7 +354,7 @@ export default function SimplePricing() {
           }}
           plan={selectedPlan}
         />
-      )}
+      )} */}
     </section>
   )
 }
