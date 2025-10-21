@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Menu, Moon, Sun, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
@@ -152,6 +152,7 @@ export function Header() {
                     modes={['light', 'dark']}
                     variant="ghost"
                     className="dark:hover:text-white"
+                    direction="ltr"
                   />
                 </motion.div>
                 <motion.div
@@ -179,17 +180,12 @@ export function Header() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Button
+                  <ThemeTogglerButton
+                    modes={['light', 'dark']}
                     variant="ghost"
-                    size="icon"
-                    onClick={() =>
-                      setTheme(theme === 'light' ? 'dark' : 'light')
-                    }
-                  >
-                    <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                    <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                    <span className="sr-only">Cambiar tema</span>
-                  </Button>
+                    className="dark:hover:text-white"
+                    direction="ltr"
+                  />
                 </motion.div>
                 <motion.div
                   whileHover={{ scale: 1.05 }}
