@@ -17,9 +17,16 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { motion } from 'framer-motion'
-import { ShoppingCartIcon, X } from 'lucide-react'
+import { ChevronUp, ShoppingCartIcon, X } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -135,9 +142,11 @@ interface BuyDialogProps {
 export function BuyDialog({ isOpen, onClose, plan }: BuyDialogProps) {
   const [appliedDiscount, setAppliedDiscount] = useState(0)
   const [isDiscountValid, setIsDiscountValid] = useState(false)
+  const [isValidatingDiscount, setIsValidatingDiscount] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [orderCreated, setOrderCreated] = useState(false)
   const [iframeUrl, setIframeUrl] = useState('')
+  const [isMobileSheetOpen, setIsMobileSheetOpen] = useState(false)
 
   const form = useForm<BuyFormData>({
     resolver: zodResolver(buyFormSchema),
@@ -159,16 +168,50 @@ export function BuyDialog({ isOpen, onClose, plan }: BuyDialogProps) {
     },
   })
 
-  const validateDiscountCode = (code: string) => {
-    if (code.toUpperCase() === DISCOUNT_COUPON) {
-      const discountAmount = (plan.price * DISCOUNT_PERCENTAGE) / 100
-      setAppliedDiscount(discountAmount)
-      setIsDiscountValid(true)
-      return true
+  const validateDiscountCode = async (code: string) => {
+    if (!code.trim()) {
+      toast.error('Por favor ingresa un código de descuento')
+      return
     }
-    setAppliedDiscount(0)
-    setIsDiscountValid(false)
-    return false
+
+    setIsValidatingDiscount(true)
+
+    // Simulated API call - replace with actual DB fetch later
+    const validateCodePromise = new Promise<{
+      valid: boolean
+      discount: number
+    }>((resolve, reject) => {
+      setTimeout(() => {
+        if (code.toUpperCase() === DISCOUNT_COUPON) {
+          resolve({ valid: true, discount: DISCOUNT_PERCENTAGE })
+        } else {
+          reject(new Error('Código de descuento inválido'))
+        }
+      }, 1000) // Simulate network delay
+    })
+
+    toast.promise(validateCodePromise, {
+      loading: 'Validando código...',
+      success: (data) => {
+        const discountAmount = (plan.price * data.discount) / 100
+        setAppliedDiscount(discountAmount)
+        setIsDiscountValid(true)
+        return `¡Código aplicado! ${data.discount}% de descuento`
+      },
+      error: (err) => {
+        setAppliedDiscount(0)
+        setIsDiscountValid(false)
+        return err.message || 'Código inválido'
+      },
+    })
+
+    try {
+      await validateCodePromise
+    } catch {
+      // Error already handled by toast.promise
+    } finally {
+      setIsValidatingDiscount(false)
+    }
   }
 
   const onSubmit = async (data: BuyFormData) => {
@@ -236,26 +279,30 @@ export function BuyDialog({ isOpen, onClose, plan }: BuyDialogProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="!max-w-7xl w-full max-h-[90vh] dark:bg-zinc-950">
-        <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-center sr-only">
+      <DialogContent
+        className="!max-w-6xl w-[98vw] lg:w-[95vw] max-h-[95vh] lg:max-h-[90vh] dark:bg-zinc-950 dark:border-zinc-700 p-0 overflow-hidden"
+        onInteractOutside={(e) => e.preventDefault()}
+      >
+        <DialogHeader className="sr-only">
+          <DialogTitle className="text-2xl font-bold text-center">
             Completar Compra
           </DialogTitle>
         </DialogHeader>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 mt-1">
+        <div className="flex flex-col lg:flex-row h-full max-h-[95vh] lg:max-h-[90vh]">
           {/* Left Column - Form */}
-          <div className="space-y-8 overflow-y-auto max-h-[70vh]">
+          <div className="flex-1 space-y-4 lg:space-y-6 overflow-y-auto p-4 sm:p-6 lg:p-8">
             {/* Buyer Data Section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <h3 className="text-2xl font-semibold mb-4">
+              <h3 className="text-xl lg:text-2xl font-semibold mb-2">
                 Datos del comprador
               </h3>
-              <p className="text-sm text-muted-foreground mb-6">
+              <div className="border-b border-zinc-200 dark:border-zinc-700 mb-3 lg:mb-4" />
+              <p className="text-sm text-muted-foreground mb-4 lg:mb-6 pt-3 pb-1">
                 Completa los siguientes datos para continuar:
               </p>
 
@@ -395,9 +442,10 @@ export function BuyDialog({ isOpen, onClose, plan }: BuyDialogProps) {
 
                   {/* Billing Data Section */}
                   <div className="pt-6 px-2">
-                    <h3 className="text-lg font-semibold mb-4">
+                    <h3 className="text-lg font-semibold mb-2">
                       Datos de facturación
                     </h3>
+                    <div className="border-b border-zinc-200 dark:border-zinc-700 mb-4" />
 
                     <div className="space-y-4">
                       <FormField
@@ -438,59 +486,15 @@ export function BuyDialog({ isOpen, onClose, plan }: BuyDialogProps) {
                     </div>
                   </div>
 
-                  {/* Discount Code Section */}
-                  <div className="pt-6 px-2">
-                    <FormField
-                      control={form.control}
-                      name="discountCode"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Código de descuento</FormLabel>
-                          <div className="flex gap-2">
-                            <FormControl>
-                              <Input
-                                placeholder="Introduce tu código de descuento"
-                                {...field}
-                                onChange={(e) => {
-                                  field.onChange(e)
-                                  if (e.target.value === '') {
-                                    setAppliedDiscount(0)
-                                    setIsDiscountValid(false)
-                                  }
-                                }}
-                              />
-                            </FormControl>
-                            <Button
-                              type="button"
-                              className="bg-primary text-primary-foreground hover:bg-primary/90"
-                              onClick={() =>
-                                validateDiscountCode(field.value || '')
-                              }
-                            >
-                              Aplicar
-                            </Button>
-                          </div>
-                          {isDiscountValid && (
-                            <p className="text-sm text-green-600">
-                              ¡Código de descuento aplicado! (
-                              {DISCOUNT_PERCENTAGE}% de descuento)
-                            </p>
-                          )}
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-
                   {/* Submit Button */}
                   <Button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full max-w-sm mx-auto mt-10 mb-4 g-primary hover:bg-primary/90 flex items-center gap-2"
+                    className="w-full mt-8 mb-20 lg:mb-4 h-13 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-base flex items-center justify-center gap-2 shadow-lg cursor-pointer transition-all duration-300"
                     size="lg"
                   >
                     {isLoading ? 'Procesando...' : 'Continuar con el pago'}
-                    <ShoppingCartIcon />
+                    <ShoppingCartIcon className="h-6 w-6" />
                   </Button>
                 </form>
               </Form>
@@ -524,16 +528,17 @@ export function BuyDialog({ isOpen, onClose, plan }: BuyDialogProps) {
             </div>
           )}
 
-          {/* Right Column - Purchase Details */}
+          {/* Right Column - Purchase Details (Desktop Only) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.1 }}
-            className="rounded-lg p-6 px-8 pt-0"
+            className="hidden lg:flex w-[420px] lg:w-[500px] shrink-0 bg-zinc-100 dark:bg-zinc-900 p-8 flex-col justify-start overflow-y-auto"
           >
-            <h3 className="text-2xl font-semibold mb-6">
+            <h3 className="text-2xl font-semibold mb-2">
               Detalle de tu compra
             </h3>
+            <div className="border-b border-zinc-200 dark:border-zinc-700 mb-6" />
 
             {/* Plan Details */}
             <div className="space-y-4">
@@ -561,14 +566,178 @@ export function BuyDialog({ isOpen, onClose, plan }: BuyDialogProps) {
               <Separator />
 
               {/* Total */}
-              <div className="flex justify-between text-lg font-bold">
-                <span>Monto Total</span>
-                <span>Bs{total.toFixed(2)}</span>
+              <div className="flex justify-between items-center pt-2">
+                <div>
+                  <span className="text-base font-medium">Monto Total</span>
+                  <p className="text-xs text-muted-foreground">
+                    Incluye IVA (13%)
+                  </p>
+                </div>
+                <span className="text-3xl font-bold">Bs{total.toFixed(2)}</span>
               </div>
 
-              <p className="text-xs text-muted-foreground">Incluye IVA (13%)</p>
+              {/* Discount Code Section */}
+              <div className="pt-6 mt-4 border-t border-border">
+                <span className="text-sm font-medium text-muted-foreground block mb-3">
+                  Código de descuento
+                </span>
+                <div className="flex gap-3">
+                  <Input
+                    placeholder="Introduce tu código"
+                    aria-label="Código de descuento"
+                    value={form.watch('discountCode') || ''}
+                    onChange={(e) => {
+                      form.setValue('discountCode', e.target.value)
+                      if (e.target.value === '') {
+                        setAppliedDiscount(0)
+                        setIsDiscountValid(false)
+                      }
+                    }}
+                    className="flex-1"
+                    disabled={isValidatingDiscount}
+                  />
+                  <Button
+                    type="button"
+                    className="rounded-full px-8 h-12 bg-primary text-primary-foreground hover:bg-primary/90 font-semibold shadow-md hover:shadow-lg transition-all duration-300"
+                    onClick={() =>
+                      validateDiscountCode(form.watch('discountCode') || '')
+                    }
+                    disabled={isValidatingDiscount}
+                  >
+                    {isValidatingDiscount ? 'Validando...' : 'Validar'}
+                  </Button>
+                </div>
+                {isDiscountValid && (
+                  <p className="text-sm text-green-500 mt-2 font-medium">
+                    ¡Código aplicado! ({DISCOUNT_PERCENTAGE}% de descuento)
+                  </p>
+                )}
+              </div>
             </div>
           </motion.div>
+
+          {/* Mobile Floating Bar + Sheet */}
+          <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50">
+            <Sheet open={isMobileSheetOpen} onOpenChange={setIsMobileSheetOpen}>
+              <SheetTrigger asChild>
+                <motion.div
+                  initial={{ y: 100 }}
+                  animate={{ y: 0 }}
+                  className="bg-zinc-100 dark:bg-zinc-900 border-t border-zinc-200 dark:border-zinc-700 px-4 py-3 cursor-pointer shadow-lg"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <ChevronUp className="h-5 w-5 text-muted-foreground" />
+                      <div>
+                        <p className="text-xs text-muted-foreground">
+                          Total a pagar
+                        </p>
+                        <p className="text-lg font-bold">
+                          Bs{total.toFixed(2)}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xs text-muted-foreground">
+                        Plan {plan.name}
+                      </p>
+                      {discount > 0 && (
+                        <p className="text-xs text-primary font-medium">
+                          -Bs{discount.toFixed(2)} descuento
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              </SheetTrigger>
+              <SheetContent
+                side="bottom"
+                className="rounded-t-3xl max-h-[75vh] overflow-y-auto px-6 pb-8"
+              >
+                <SheetHeader className="pb-2 pt-2">
+                  <div className="w-12 h-1.5 bg-zinc-300 dark:bg-zinc-600 rounded-full mx-auto mb-4" />
+                  <SheetTitle className="text-lg font-semibold text-left">
+                    Detalle de tu compra
+                  </SheetTitle>
+                </SheetHeader>
+
+                <div className="space-y-3 pb-4">
+                  <div className="flex items-center justify-between py-1.5">
+                    <span className="text-sm text-muted-foreground">Plan:</span>
+                    <span className="font-medium text-sm">{plan.name}</span>
+                  </div>
+
+                  <Separator />
+
+                  <div className="flex justify-between py-1 text-sm">
+                    <span>Total parcial</span>
+                    <span>Bs{subtotal.toFixed(2)}</span>
+                  </div>
+
+                  <div className="flex justify-between py-1 text-sm">
+                    <span>Descuentos</span>
+                    <span
+                      className={discount > 0 ? 'text-primary font-medium' : ''}
+                    >
+                      {discount > 0 ? `-Bs${discount.toFixed(2)}` : 'Bs0.00'}
+                    </span>
+                  </div>
+
+                  <Separator />
+
+                  <div className="flex justify-between items-center py-2">
+                    <div>
+                      <span className="text-sm font-medium">Monto Total</span>
+                      <p className="text-xs text-muted-foreground">
+                        Incluye IVA (13%)
+                      </p>
+                    </div>
+                    <span className="text-xl font-bold">
+                      Bs{total.toFixed(2)}
+                    </span>
+                  </div>
+
+                  {/* Discount Code Section - Mobile */}
+                  <div className="pt-3 border-t border-border">
+                    <span className="text-xs font-medium text-muted-foreground block mb-2">
+                      Código de descuento
+                    </span>
+                    <div className="flex gap-2">
+                      <Input
+                        placeholder="Tu código"
+                        aria-label="Código de descuento"
+                        value={form.watch('discountCode') || ''}
+                        onChange={(e) => {
+                          form.setValue('discountCode', e.target.value)
+                          if (e.target.value === '') {
+                            setAppliedDiscount(0)
+                            setIsDiscountValid(false)
+                          }
+                        }}
+                        className="flex-1 h-10 text-sm"
+                        disabled={isValidatingDiscount}
+                      />
+                      <Button
+                        type="button"
+                        className="rounded-full px-5 h-10 bg-primary text-primary-foreground hover:bg-primary/90 font-semibold text-sm"
+                        onClick={() =>
+                          validateDiscountCode(form.watch('discountCode') || '')
+                        }
+                        disabled={isValidatingDiscount}
+                      >
+                        {isValidatingDiscount ? '...' : 'Validar'}
+                      </Button>
+                    </div>
+                    {isDiscountValid && (
+                      <p className="text-sm text-green-500 mt-2 font-medium">
+                        ¡Código aplicado! ({DISCOUNT_PERCENTAGE}% de descuento)
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
