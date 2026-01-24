@@ -16,7 +16,7 @@ export interface PlanType {
   actionVariant: 'filled' | 'outline'
 }
 
-export const baseMonthlyPlanPrice = 79
+export const baseMonthlyPlanPrice = 99
 
 export const plans: PlanType[] = [
   {
@@ -44,7 +44,7 @@ export const plans: PlanType[] = [
     name: 'Anual',
     value: 'yearly',
     pricing: {
-      priceValue: 948,
+      priceValue: 900,
       stockPriceValue: baseMonthlyPlanPrice * 12,
       hotsale: {
         priceValue: 853,

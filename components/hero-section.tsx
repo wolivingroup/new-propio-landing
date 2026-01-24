@@ -42,9 +42,17 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              Propio es la plataforma multitenant que permite a emprendedores
-              crear, gestionar y escalar sus tiendas online con facilidad. Sin
-              restricciones técnicas, con todas las herramientas que necesitas.
+              Tu tienda online profesional, sin complicaciones
+              Tener tu propia página web ya no requiere de programadores
+              ni de presupuestos inalcanzables. Con Propio, creas una tienda
+              a tu medida personalizando colores, botones y secciones de
+              forma tan fácil que parece un juego.
+              Es mucho más que un catálogo: es una herramienta que
+              trabaja sola. Gracias a su pasarela de pagos integrada, la
+              plataforma cobra por ti y te deposita tus ganancias
+              automáticamente. Por una mínima suscripción mensual,
+              conviertes tu negocio en una máquina de ventas que gestiona
+              todo el ciclo comercial mientras tú te enfocas en crecer. 
             </motion.p>
 
             <motion.div
