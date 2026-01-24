@@ -80,7 +80,7 @@ const Hero4 = () => {
                 gsapVars={{ filter: 'blur(8px)', duration: 1.5, stagger: 0.15 }}
               >
                 <p className="text-center text-2xl leading-tight font-semibold tracking-tight sm:text-3xl md:text-4xl xl:text-5xl 2xl:text-6xl">
-                  Think Smarter. Work Faster. Achieve More.
+                  Crea hoy para vender siempre
                 </p>
               </RevealText>
             </RevealOnScroll>
@@ -101,14 +101,14 @@ const Hero4 = () => {
                 }}
               >
                 <p className="text-foreground/70 text-center text-sm leading-snug font-medium md:text-base lg:text-lg">
-                  From thoughtful UI states to ready-to-use task flows,
-                  everything you need to design smarter agentic apps and
-                  future-proof your product
+                  Con Propio, tu tienda funciona en piloto automático para que cobres 24/7. Recibe notificaciones al instante por cada venta, controla tu gestión
+                  con reportes sencillos y haz seguimiento de tus ingresos de forma clara y transparente. Tu solo enfócate en crear y crecer que Propio se enforca
+                  en que tu tienda funcione a la perfección. 
                 </p>
               </RevealText>
             </RevealOnScroll>
 
-            <RevealOnScroll
+            {/* <RevealOnScroll
               effect="blurIn"
               className="mt-6 flex items-center justify-center gap-2 md:mt-8 xl:mt-10"
               toVars={{ duration: 1, delay: 0.35 }}
@@ -121,8 +121,8 @@ const Hero4 = () => {
                   Trusted by teams and businesses
                 </p>
               </div>
-            </RevealOnScroll>
-            <RevealOnScroll
+            </RevealOnScroll> */}
+            {/* <RevealOnScroll
               effect="blurIn"
               className="mt-8 flex items-center justify-center gap-4 md:gap-6 xl:mt-12"
               toVars={{ duration: 1, delay: 0.65 }}
@@ -148,7 +148,7 @@ const Hero4 = () => {
                 </div>
                 <p className="text-start">AI App</p>
               </Button>
-            </RevealOnScroll>
+            </RevealOnScroll> */}
           </div>
         </div>
       </div>
@@ -179,7 +179,7 @@ const Hero4 = () => {
         <div className="to-background absolute inset-x-0 bottom-0 h-32 bg-linear-to-b from-transparent sm:h-48" />
       </div>
 
-      <div className="bg-foreground/2 h-44 py-24 w-full flex flex-col items-center justify-center border-t">
+      {/* <div className="bg-foreground/2 h-44 py-24 w-full flex flex-col items-center justify-center border-t">
         <p className="text-foreground/70 text-center text-lg font-medium">
           Used by top companies
         </p>
@@ -206,7 +206,7 @@ const Hero4 = () => {
             alt="Company"
           />
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

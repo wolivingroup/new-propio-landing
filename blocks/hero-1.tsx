@@ -22,21 +22,22 @@ const Hero1 = () => {
       <div className="container grid place-content-center overflow-hidden p-4 sm:p-6 lg:p-12 mx-auto">
         <div className="grid h-full grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-12">
           <div className="order-2 flex flex-col items-start lg:order-1">
-            <div className="bg-muted flex items-center gap-1.5 rounded-full py-1 ps-1 pe-3 text-sm">
+            {/* <div className="bg-muted flex items-center gap-1.5 rounded-full py-1 ps-1 pe-3 text-sm">
               <div className="bg-primary text-primary-foreground rounded-full p-1">
                 <ZapIcon className="size-4" />
               </div>
               <p>Built for everyday speed</p>
-            </div>
+            </div> */}
 
-            <RevealText className="mt-3 text-2xl leading-[1.15] font-semibold sm:text-3xl lg:text-5xl">
-              Smarter Workflows. Faster Results.{' '}
-              <span className="text-primary">Better Clarity.</span>
+            <RevealText className="mt-3 text-2xl leading-[1.15] font-normal sm:text-3xl lg:text-5xl">
+              Hazlo {' '}
+              <span className="text-primary">Propio, </span>
+              hazlo {' '}
+              <span className='font-bold'>grande!</span>
             </RevealText>
             <p className="text-foreground/80 mt-3 max-w-lg max-sm:text-sm lg:mt-5">
-              Plan and write faster with simple, focused tools built for action,
-              growth, and everyday creative momentum across all your important
-              projects.
+              La primera plataforma boliviana de e-commerce que realmente lo hace todo por ti. Crea tu tienda en minutos sin tocar una sola línea de código 
+              y automatiza todo el ciclo: desde el cobro y la facturación electrónica hasta el envío. Tú eliges los productos, la plataforma se encarga de que el resto funcione solo.
             </p>
             <div className="mt-4 2xl:mb-0 mb-6 flex items-center flex-wrap w-full gap-y-2 justify-start space-x-8 text-xs md:text-sm text-muted-foreground">
               {[
@@ -51,7 +52,7 @@ const Hero1 = () => {
               ))}
             </div>
 
-            <div className="mt-auto flex flex-wrap items-center gap-3">
+            {/* <div className="mt-auto flex flex-wrap items-center gap-3">
               <TextFallButton className="bg-primary text-primary-foreground cursor-pointer overflow-hidden rounded-full py-2 ps-4 pe-5 font-medium">
                 Start Free Trial
               </TextFallButton>
@@ -62,8 +63,8 @@ const Hero1 = () => {
                 Watch Demo
                 <PlayCircleIcon className="size-4.5" />
               </SpringButton>
-            </div>
-            <div className="mt-auto flex items-center gap-2 pt-4 lg:pt-6">
+            </div> */}
+            {/* <div className="mt-auto flex items-center gap-2 pt-4 lg:pt-6">
               <div className="flex -space-x-4 *:transition-all *:duration-300 *:hover:-translate-y-2">
                 <img
                   src={avatars[0]}
@@ -87,7 +88,7 @@ const Hero1 = () => {
                   Trusted by teams and businesses
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <TiltCard

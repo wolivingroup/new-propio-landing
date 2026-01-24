@@ -15,33 +15,33 @@ import { StaggerOnScroll } from '../gsap/stagger-on-scroll'
 const features = [
   {
     icon: <Code className="h-6 w-6" />,
-    title: 'Developer-Friendly',
-    desc: 'Tailored for developers to create and iterate fast, with minimal overhead and maximum flexibility.',
+    title: 'Personalización',
+    desc: 'Crea tu vitrina configurando catálogos, colores, ofertas y secciones en pocos segundos.',
   },
   {
     icon: <Terminal className="h-6 w-6" />,
-    title: 'CLI Support',
-    desc: 'Command-line interface support for seamless development and workflow integration.',
+    title: 'Ahorro',
+    desc: 'Maximiza tu rentabilidad con baja inversión. Automatiza cobros y vende las 24/7 sin detenerte.',
   },
   {
     icon: <Paintbrush className="h-6 w-6" />,
-    title: 'Easily Customizable',
-    desc: 'Every block is built to be editable. From layout to logic, style to structure—make it your own.',
+    title: 'Pasarela Integrada',
+    desc: 'Gestiona tus pagos con total seguridad. Recibe confirmación inmediata por tarjeta o transferencia.',
   },
   {
     icon: <Rocket className="h-6 w-6" />,
-    title: 'v0 Support',
-    desc: 'Launch fast with confidence. Perfect for MVPs, prototypes, and weekend projects.',
+    title: 'Omnicalidad',
+    desc: 'Todas tus ventas en un solo lugar. Despacha tus pedidos fácilmente y llega a más clientes.',
   },
   {
     icon: <Book className="h-6 w-6" />,
-    title: 'Full Documentation',
-    desc: 'Comprehensive documentation to understand every feature and maximize your development experience.',
+    title: 'Reportes',
+    desc: 'Controla el éxito de tu negocio con métricas. Analiza ventas y productos para crecer estratégicamente.',
   },
   {
     icon: <PlusCircle className="h-6 w-6" />,
-    title: 'Contribute Yours',
-    desc: 'Add your own blocks to the library and become part of the MVPBlocks community.',
+    title: 'Formación',
+    desc: 'Escala tu tienda con nuestra guía experta. Aprende a atraer tráfico masivo y potenciar cada función.',
   },
 ]
 
@@ -125,9 +125,9 @@ export default function Feature1() {
                   />
                 </div>
 
-                <div className="text-primary w-fit transform-gpu rounded-full border p-4 [box-shadow:0_-20px_80px_-20px_#e4611028_inset] dark:[box-shadow:0_-20px_80px_-20px_#e4611028_inset]">
+                {/* <div className="text-primary w-fit transform-gpu rounded-full border p-4 [box-shadow:0_-20px_80px_-20px_#e4611028_inset] dark:[box-shadow:0_-20px_80px_-20px_#e4611028_inset]">
                   {item.icon}
-                </div>
+                </div> */}
                 <h4 className="font-geist text-lg font-bold tracking-tighter">
                   {item.title}
                 </h4>

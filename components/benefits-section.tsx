@@ -10,19 +10,19 @@ const benefits = [
     icon: TrendingUp,
     title: 'Crece sin límites',
     description:
-      'Escala tu negocio desde 0 hasta millones de productos sin preocuparte por la infraestructura.',
+      'No te quedes fuera del mercado: en 2026 el e-commerce en Bolivia moverá 720 millones. Con Propio aseguras hoy tu pedazo del pastel enminutos.',
   },
   {
     icon: Users,
     title: 'Para todo tipo de negocio',
     description:
-      'Desde emprendedores individuales hasta grandes empresas. Propio se adapta a tu tamaño.',
+      'Tu mercado está en el celular con 8.77 millones de usuarios conectados. Con más del 70% navegando, tu tienda debe ser tu mayor prioridad ahora.',
   },
   {
     icon: Rocket,
     title: 'Lanza en minutos',
     description:
-      'Configura tu tienda completa en menos de 10 minutos. Sin complicaciones técnicas.',
+      'El 47% de los bolivianos ya realiza pagos digitales habitualmente. Tu plataforma genera ventas seguras porque el usuario tiene confianza de pagar vía online hoy.',
   },
 ]
 
@@ -83,9 +83,9 @@ export function BenefitsSection() {
                     <benefit.icon className="h-5 w-5 text-primary" />
                   </motion.div>
                   <div>
-                    <h3 className="font-semibold text-lg mb-2">
+                   {/*  <h3 className="font-semibold text-lg mb-2">
                       {benefit.title}
-                    </h3>
+                    </h3> */}
                     <p className="text-muted-foreground leading-relaxed">
                       {benefit.description}
                     </p>
