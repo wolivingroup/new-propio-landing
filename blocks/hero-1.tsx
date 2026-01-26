@@ -1,9 +1,9 @@
-import { PlayCircleIcon, ZapIcon } from 'lucide-react'
 
 import { RevealText } from '@/components/gsap/reveal-text'
 import { SpringButton } from '@/components/gsap/spring-button'
 import { TextFallButton } from '@/components/gsap/text-fall-button'
 import { TiltCard } from '@/components/gsap/tilt-card'
+import { PlayCircleIcon } from 'lucide-react'
 
 const avatars = [
   'https://github.com/vercel.png',
@@ -29,7 +29,7 @@ const Hero1 = () => {
               <p>Built for everyday speed</p>
             </div> */}
 
-            <RevealText className="mt-3 text-2xl leading-[1.15] font-normal sm:text-3xl lg:text-5xl">
+            <RevealText className="mt-3 text-2xl leading-[1.15] font-bold sm:text-3xl lg:text-5xl">
               Hazlo {' '}
               <span className="text-primary">Propio, </span>
               hazlo {' '}
@@ -52,7 +52,7 @@ const Hero1 = () => {
               ))}
             </div>
 
-            {/* <div className="mt-auto flex flex-wrap items-center gap-3">
+            <div className="mt-auto flex flex-wrap items-center gap-3">
               <TextFallButton className="bg-primary text-primary-foreground cursor-pointer overflow-hidden rounded-full py-2 ps-4 pe-5 font-medium">
                 Start Free Trial
               </TextFallButton>
@@ -63,8 +63,8 @@ const Hero1 = () => {
                 Watch Demo
                 <PlayCircleIcon className="size-4.5" />
               </SpringButton>
-            </div> */}
-            {/* <div className="mt-auto flex items-center gap-2 pt-4 lg:pt-6">
+            </div> 
+            <div className="mt-auto flex items-center gap-2 pt-4 lg:pt-6">
               <div className="flex -space-x-4 *:transition-all *:duration-300 *:hover:-translate-y-2">
                 <img
                   src={avatars[0]}
@@ -88,7 +88,7 @@ const Hero1 = () => {
                   Trusted by teams and businesses
                 </p>
               </div>
-            </div> */}
+            </div> 
           </div>
 
           <TiltCard
