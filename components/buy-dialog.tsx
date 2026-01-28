@@ -60,7 +60,7 @@ export type PlanPurchaseType = {
   }
   paymentMethod: 'cash' | 'wolipay'
   discountCode?: string
-  discountType?: 'referral' | 'sales' | 'special'
+  discountType?: 'referral' | 'sales' | 'special' | null
   referralData?: CodeType
 }
 
@@ -238,7 +238,7 @@ export function BuyDialog({ isOpen, onClose, plan }: BuyDialogProps) {
           price: plan.price,
         },
         discountCode: data.discountCode || '',
-        discountType: isDiscountValid ? 'sales' : undefined,
+        discountType: isDiscountValid ? 'sales' : null,
       }
 
       console.log('Purchase data:', purchaseData)
